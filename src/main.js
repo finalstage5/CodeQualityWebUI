@@ -9,7 +9,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 import './assets/css/reset.css';
 import axios from 'axios'
 import wave from './directive/index'
-
+import * as echarts from 'echarts';
+Vue.prototype.$echarts = echarts;
 Vue.use(Router);
 Vue.use(ElementUI);
 Vue.use(wave);

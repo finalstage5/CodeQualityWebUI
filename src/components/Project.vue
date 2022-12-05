@@ -3,7 +3,7 @@
     <div>
       <el-table
         :data="tableData"
-        style="width: 1040px;margin-bottom: 20px;margin-left: 200px;"
+        style="width: 60%;margin-bottom: 20px;margin-left: 20%;"
         :span-method="arraySpanMethod"
         row-key="id"
         border
@@ -80,6 +80,8 @@
         </el-table-column>
       </el-table>
 
+      <div id="myChart"   center="true" style="width: 800px; background-color:#ffffff;height: 450px;margin-left: 25%;"></div>
+
       <el-button v-wave class="Back" type="primary" @click="back">返回</el-button>
       <!--el-button class="Look" type="primary" @click="Look"--><!----查看历史版本/-el-button-->
       <el-button v-wave class="LoginOut" type="warning" @click="loginOut">登出</el-button>
@@ -93,18 +95,73 @@
 
 <script>
 import Vue, {ref} from "vue";
+import * as echarts from "echarts";
+let lineDefaultOpt = {
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {
+    bottom: 0,
+    left: 'center'
+  },
+  grid: {
+    left: 30,
+    bottom: 50,
+    containLabel: true
+  },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: ['5%', '0%'],
+    axisLine: {
+      lineStyle: {
+        color: ['#666666'],
+        width: 1,
+        type: 'solid'
+      }
+    }
+  },
+  yAxis: {
+    type: 'value',
+    boundaryGap: ['0%', '0%'],
+    axisLine: {
+      lineStyle: {
+        color: ['#666666'],
+        width: 1,
+        type: 'solid'
+      }
+    },
+    splitLine: {
+      show: true,
+      lineStyle: {
+        color: '#C4C4C4',
+        width: 1,
+        type: 'dashed'
+      }
+    }
+  },
+  series: []
+}
+require("echarts/theme/macarons"); //引入主题
 export default {
   name: "Project",
   data() {
     return {
+      myChart: null,
       tableData: [],
+      doubleLineOption: lineDefaultOpt,
       Visible: false,
     };
   },
   mounted:function (){
     this.$message.success("正在加载请稍后~");
     const that=this;
-    let vids=0, fids=0,cids=0,fucids=0;
+    let times=[],cyclomatic_complexitys=[];
+    let vids=0, fids=0,cids=0,fucids=0,num=0;
     let url1 = '/details/version_list?' + 'user_id=' + sessionStorage.getItem("user_id")
       + '&token=' + sessionStorage.getItem("token")
       +'&pro_id='+ sessionStorage.getItem("pro_id");
@@ -191,6 +248,8 @@ export default {
             vertemp.understandability=res.data.version_list[vids].understandability;
             vertemp.pro_id=res.data.version_list[vids].pro_id;
 
+            times.push(result_time.toString());
+            cyclomatic_complexitys.push(parseInt(res.data.version_list[vids].cyclomatic_complexity));
 
             let url2 = '/details/file_list?'
               + 'user_id=' + sessionStorage.getItem("user_id")
@@ -384,6 +443,47 @@ export default {
               });
             that.tableData.push(vertemp);     //添加每一个版本
           }
+
+          /*
+   //折线图
+   //if(this.myChart) this.myChart.clear();
+   //this.myChart = this.$echarts.init(document.getElementById("myChart"));
+   //if (this.$refs.myChart){
+   //  this.$refs.myChart.clear();
+   //  this.$refs.myChart.dispose();
+   //}
+   //this.$refs.myChart = echarts.init(this.$refs.myChart);
+   console.log(times);
+   console.log(cyclomatic_complexitys);
+   this.myChart.setOption({
+     title:{text: '圈复杂度变化'},
+     tooltip: {},
+     xAxis: {
+       type: 'category',
+       data: times
+     },
+     yAxis: {
+       type: 'value'
+     },
+     series: [{
+       data: cyclomatic_complexitys,
+       type: 'line'
+     }]
+   });
+
+    */
+          const list = [{
+            name: '圈复杂度',
+            type: 'line',
+            symbol: 'circle',
+            symbolSize: [5, 5],
+            data: cyclomatic_complexitys
+          }];
+          that.doubleLineOption.series = list;
+          that.doubleLineOption.xAxis.data = times;
+          console.log(times);
+          console.log(cyclomatic_complexitys);
+          this.eChartsInit('myChart', 'light', that.doubleLineOption);
         } else {
           this.$message.error("获取信息失败");
         }
@@ -399,6 +499,12 @@ export default {
       sessionStorage.setItem('ver_id',props.row.pid);
       console.log(props.row.pid);
       this.$router.push('/Reportlist');
+    },
+    eChartsInit(domId, theme, opt) {
+      this.$echarts.init(document.getElementById(domId), theme).setOption(opt)
+      window.addEventListener('resize', () => {
+        this.$echarts.init(document.getElementById(domId), theme).resize()
+      })
     },
     arraySpanMethod({ row, column, rowIndex, columnIndex }) {
       if (!row.datas) {
@@ -665,7 +771,8 @@ export default {
 
 <style scoped>
 .Back{
-  position: relative;left:600px;top:0px;
+  position: relative;left:35%;top:0px;
+  margin-top: 20px;
   font-weight: 800;
   font-size: 16px;
 }
@@ -675,7 +782,8 @@ export default {
   font-size: 16px;
 }
 .LoginOut{
-  position: relative;left:720px;top:0px;
+  position: relative;left:55%;top:0px;
+  margin-top: 20px;
   font-weight: 800;
   font-size: 16px;
 }

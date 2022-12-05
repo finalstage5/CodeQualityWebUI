@@ -13,7 +13,6 @@
       </el-form-item>
       <el-row style="text-align: center;margin-top: -10px;">
         <el-link type="primary" @click="toRegister()">用户注册</el-link>
-        <el-link type="primary">忘记密码</el-link>
       </el-row>
     </el-form>
   </div>

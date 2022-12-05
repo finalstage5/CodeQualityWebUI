@@ -50,6 +50,10 @@ export default{
           return false;
         }
       }
+      else {
+        alert("邮箱格式不正确，请重新输入！");
+        return false;
+      }
 
       console.log("username=%s,email=%s,password=%s", username, email,password);
       let url='/user/signup';

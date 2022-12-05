@@ -23,7 +23,7 @@
         </el-descriptions-item>
         <el-descriptions-item>
           <template slot="label">
-            代码行数
+            代码字节数
           </template>
           {{ length }}
         </el-descriptions-item>
