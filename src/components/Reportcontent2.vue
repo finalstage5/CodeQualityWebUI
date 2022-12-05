@@ -33,7 +33,7 @@
         style="margin-top: 20px;"
         border
       >
-        <el-table-column v-for="item in tableHead" align="center" :label="item.label" :property="item.property">
+        <el-table-column v-for="item in tableHead" :key="item" align="center" :label="item.label" :property="item.property">
         </el-table-column>
 
       </el-table>

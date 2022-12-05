@@ -5,6 +5,7 @@
         :data="tableData"
         style="width: 60%;margin-bottom: 20px;margin-left: 20%;"
         :span-method="arraySpanMethod"
+        max-height="800px"
         row-key="id"
         border
       >
