@@ -1,19 +1,8 @@
 <template>
   <div>
     <div>
-<<<<<<< HEAD
       <el-table :data="tableData" style="width: 64%;margin-bottom: 20px;margin-left: 20%;"
         :span-method="arraySpanMethod" max-height="800px" row-key="id" border>
-=======
-      <el-table
-        :data="tableData"
-        style="width: 60%;margin-bottom: 20px;margin-left: 20%;"
-        :span-method="arraySpanMethod"
-        max-height="800px"
-        row-key="id"
-        border
-      >
->>>>>>> d8f1704132d5a572b047ba5af8c1db9b7a274a44
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-table class="table-in-table" :data="props.row.datas" style="width: 100%;margin-left: 20px;" row-key="id"
