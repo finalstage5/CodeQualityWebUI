@@ -26,7 +26,7 @@ export default {
     this.getHour()
     //配置
     var config = {
-      vx: 4,	//小球x轴速度,正为右，负为左
+      vx: 4,	//小球x轴速度,正为右 ，负为左
       vy: 4,	//小球y轴速度
       height: 2,	//小球高宽，其实为正方形，所以不宜太大
       width: 2,

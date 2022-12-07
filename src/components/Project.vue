@@ -242,6 +242,8 @@ export default {
                 if (res1.data.resp.status_code === 0) {
                   //this.$message.success("信息获取成果成功");
                   for (fids = 0; fids < res1.data.file_list.length; fids++) {
+                    if(res1.data.file_list[fids].name.substring(res1.data.file_list[fids].name.lastIndexOf('.')+1)!=='java')
+                      continue;
                     let filetemp = {
                       id: Number,
                       name: String,
