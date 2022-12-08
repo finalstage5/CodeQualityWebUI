@@ -11,7 +11,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {"/api":{
-        target: 'http://127.0.0.1:8095',      //后端接口的根目录
+        target: 'http://122.9.64.189:8095',      //后端接口的根目录
         changeOrigin: true,                    //是否跨域
         pathRewrite: {
           '^/api': ''

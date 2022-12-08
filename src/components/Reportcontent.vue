@@ -88,7 +88,7 @@ export default {
 
         that.result = res.data.report.result;
 
-        let data = that.result.split('\r\n');
+        let data = that.result.split('\n');
         data.splice(0, 2);//将数组第一位的表格名称去除
         that.tableData=[];
         for (let i = 0; i < data[i].length; i++) {

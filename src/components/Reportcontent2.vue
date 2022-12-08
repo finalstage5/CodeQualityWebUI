@@ -91,7 +91,7 @@ export default {
           {label:"Rule_set", property:"Rule_set"},
           {label:"Rule", property:"Rule"}
         ];
-        let data = that.result.split('\r\n');
+        let data = that.result.split('\n');
         data.splice(0, 1);//将数组第一位的表格名称去除
         that.tableData=[];
         for (let i = 0; i < data[i].length; i++) {
